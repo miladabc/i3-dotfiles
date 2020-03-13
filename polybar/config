@@ -1,0 +1,435 @@
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+
+trans = #00000000
+white = #FFFFFF
+black = #000000
+danger = #C0392B
+
+bg = #77333333
+fg = #e0e0e0
+fg-alt = #A9ABB0
+
+date = #FF6F3C
+backlight = #F1C40F
+volume = #2980B9
+netspeed = #27AE60
+ws = #aedefc
+memory = #7D3C98
+cpu = #2980B9
+battery-full = #27AE60
+battery-charging = #27AE60
+battery-discharging = #C0392B
+layout = #F1C40F
+network-connected = #FF6F3C
+
+shade1 = #0D47A1
+shade2 = #1565C0
+shade3 = #1976D2
+shade4 = #1E88E5
+shade5 = #2196F3
+shade6 = #42A5F5
+shade7 = #64B5F6
+shade8 = #90CAF9
+ashade8 = #2C2C2C
+
+
+primary = #aa0D47A1
+secondary = #e60053
+alert = #bd2c40
+
+[bar/top_bar]
+width = 100%
+height = 43
+fixed-center = true
+line-size = 5
+radius = 20
+
+#background = #44111122
+#background = #550a0f14
+background = #9917202A
+foreground = ${colors.fg}
+
+border-top-size = 15
+border-bottom-size = 0
+border-left-size = 18
+border-right-size = 18
+border-color = ${colors.trans}
+
+padding = 2
+;padding-left = 0
+;padding-right = 0
+
+module-margin = 0
+;module-margin-left = 0
+;module-margin-right = 0
+
+font-0 = "GoogleSans Nerd Font:style=Regular;3"
+font-1 = "GoogleSans Nerd Font:style=Regular;3"
+font-2 = "GoogleSans Nerd Font:style=Bold;3"
+font-3 = "Material Icons:style=Regular:size=16;5"
+font-4 = "FontAwesome5Free:style=Solid:size=14;2"
+font-5 = "FontAwesome:style=Regular:size=14;2"
+font-6 = "FontAwesome5Free:style=Regular:size=14;2"
+font-7 = "FontAwesome5Brands:style=Regular:size=14;2"
+font-8 = "Ionicons:style=Regular"
+font-9 = "FontAwesome5Duotone:style=Solid:size=14;2"
+font-10 = "FontAwesome5Pro:style=Light:size=14;2"
+
+;font-0 = "FontAwesome5Pro:style=Solid:size=14"
+;font-1 = "FontAwesome5Pro:style=Regular:size=14"
+;font-2 = "FontAwesome5Brands:style=Regular:size=14"
+;font-3 = "FontAwesome5Pro:style=Solid:size=14"
+;font-4 = "FontAwesome5Duotone:style=Solid:size=14"
+;font-5 = "Ionicons:style=Regular"
+
+
+modules-left = date xbacklight pulseaudio netspeed
+modules-center = i3
+modules-right = memory cpu battery xkeyboard wlan eth eth2 nonet
+
+# modules-left = i3
+# modules-center = date
+# modules-right = wlan memory cpu brightness volume battery xkeyboard powermenu
+
+tray-position = right
+tray-padding = 5
+tray-background = ${colors.primary}
+tray-background-radius = 10
+
+cursor-click = pointer
+# cursor-scroll = ns-resize
+
+[module/bluetooth]
+type = custom/script
+content = hey
+#exec = rofi-bluetooth --status
+interval = 1
+click-left = rofi-bluetooth &
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:125:...%
+label-padding = 2
+label-font = 3
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+format = <label-layout>
+format-foreground = ${colors.layout}
+label-layout =  %icon%
+label-layout-padding = 2
+
+layout-icon-0 = us;US
+layout-icon-1 = ir;IR
+
+
+[module/i3]
+type = internal/i3
+index-sort = true
+wrapping-scroll = true
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+;ws-icon-0 = 1;
+;ws-icon-1 = 2;
+;ws-icon-2 = 3;
+;ws-icon-3 = 4;
+;ws-icon-4 = 5;
+;ws-icon-5 = 6;
+;ws-icon-default = 
+
+ws-icon-default = 􏄑
+
+;ws-icon-0 = 1;
+;ws-icon-1 = 2;
+;ws-icon-2 = 3;
+;ws-icon-3 = 4;
+;ws-icon-4 = 5;
+;ws-icon-5 = 6;
+;ws-icon-6 = 7;
+;ws-icon-7 = 8;
+;ws-icon-8 = 9;
+;ws-icon-10 = 0;
+
+;ws-icon-0 = 1;
+;ws-icon-1 = 2;
+;ws-icon-2 = 3;
+;ws-icon-3 = 4;
+;ws-icon-4 = 5;
+;ws-icon-5 = 6;
+;ws-icon-6 = 7;
+;ws-icon-7 = 8;
+;ws-icon-8 = 9;
+;ws-icon-10 = 0;
+;ws-icon-default = 
+
+format = <label-state> <label-mode>
+
+;label-mode = %mode%
+;label-mode-padding = 2
+;label-mode-foreground = ${colors.fg}
+;label-mode-background = ${colors.bg}
+
+; focused = Active workspace on focused monitor
+label-focused = 
+label-focused-padding = 2
+label-focused-foreground = ${colors.ws}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-padding = 2
+label-unfocused-foreground = ${colors.ws}
+
+; visible = Active workspace on unfocused monitor
+label-visible = 
+label-visible-padding = 2
+
+; urgent = Workspace with urgency hint set
+label-urgent = 
+label-urgent-foreground = ${colors.danger}
+label-urgent-padding = 2
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label>
+format-padding = 2
+label =  %percentage%%
+label-foreground = ${colors.backlight}
+
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+[module/brightness]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = 
+
+bar-width = 7
+bar-indicator = 
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = 
+bar-fill-font = 2
+bar-fill-foreground = #fff
+bar-empty = 
+bar-empty-font = 2
+bar-empty-foreground = #808080
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-padding = 2
+format-foreground = ${colors.cpu}
+label = %percentage:2%%
+click-left = exec xfce4-taskmanager &
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-padding = 2
+format-foreground = ${colors.memory}
+label = %percentage_used%%
+
+[module/netspeed]
+type = internal/network
+interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp3s0}
+interval = 1
+
+format-connected = <label-connected>
+format-connected-padding = 2
+format-connected-foreground = ${colors.netspeed}
+label-connected =  %downspeed%   %upspeed%
+
+format-disconnected =  0 KB/s   0 KB/s
+format-disconnected-foreground = ${colors.danger}
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 1
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-padding = 2
+format-connected-foreground = ${colors.network-connected}
+label-connected = %essid%
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+
+[module/eth]
+type = internal/network
+interface = enp2s0
+interval = 1
+
+format-connected = <label-connected>
+format-connected-padding = 2
+format-connected-foreground = ${colors.network-connected}
+label-connected =  Wired
+
+[module/eth2]
+type = internal/network
+interface = enp0s20f0u1
+interval = 1
+
+format-connected = <label-connected>
+format-connected-padding = 2
+format-connected-foreground = ${colors.network-connected}
+label-connected =  Wired
+
+[module/nonet]
+type = internal/network
+interface = ${env:DEFAULT_NETWORK_INTERFACE}
+interval = 1
+
+format-connected =
+format-disconnected = <label-disconnected>
+format-disconnected-padding = 2
+format-disconnected-foreground = ${colors.danger}
+label-disconnected =  NoNetwork
+# label-disconnected =  NotConnected
+
+[module/date]
+type = internal/date
+
+interval = 50
+
+date = %a %b %d, 
+time = %H:%M
+
+date-alt = %A, %d %B %Y
+time-alt = %H:%M
+
+format = <label>
+format-padding = 2
+format-foreground = ${colors.date}
+
+label = %date% %time%
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 2
+format-volume-foreground = ${colors.volume}
+label-volume = %percentage:2%%
+
+format-muted = <label-muted>
+format-muted-padding = 2
+label-muted =   0%
+label-muted-foreground = ${colors.danger}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/volume]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+format-volume = <label-volume> <bar-volume>
+format-volume-padding = 2
+label-volume = 
+label-volume-foreground = ${root.foreground}
+
+format-muted = <label-muted>
+label-muted =  Muted
+format-muted-padding = 2
+label-muted-foreground = ${root.foreground}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+bar-volume-width = 7
+bar-volume-indicator = 
+bar-volume-indicator-foreground = #fff
+bar-volume-indicator-font = 2
+bar-volume-fill = 
+bar-volume-fill-font = 2
+bar-volume-fill-foreground = #fff
+bar-volume-empty = 
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = #808080
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 99
+
+format-charging = <animation-charging> <label-charging>
+format-charging-foreground = ${colors.battery-charging}
+format-charging-padding = 2
+label-charging = %percentage%%
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-padding = 2
+format-discharging-foreground = ${colors.battery-discharging}
+label-discharging = %percentage%%
+
+format-full = <label-full>
+format-full-prefix = " "
+format-full-padding = 2
+format-full-foreground = ${colors.battery-full}
+label-full = %percentage%%
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = #ffb52a
+
+# animation-charging-0 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+# animation-charging-foreground =
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+# animation-discharging-foreground =
+animation-discharging-framerate = 750
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 0
+
+; vim:ft=dosini
