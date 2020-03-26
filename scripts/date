@@ -1,0 +1,40 @@
+#!/bin/node
+
+class PersianDate extends Date {
+  static locale = 'fa-IR';
+
+  constructor(...args) {
+    super(...args);
+  }
+
+  static persianNumberToEnglish(persianNumber) {
+    return persianNumber
+      .replace(/([۰-۹])/g, (token) => String.fromCharCode(token.charCodeAt(0) - 1728));
+  }
+
+  getDayName() {
+    return this.toLocaleDateString('en-US', { weekday: 'short' });
+  }
+
+  getPersianMonthName() {
+    const months = ['Far', 'Ord', 'Kho', 'Tir', 'Mor', 'Sha', 'Meh', 'Aba', 'Aza', 'Dey', 'Bah', 'Esf'];
+    const monthInPersianDigit = this.toLocaleDateString(PersianDate.locale, { month: 'numeric' });
+    const month = PersianDate.persianNumberToEnglish(monthInPersianDigit);
+
+    return months[month - 1];
+  }
+
+  getPersianDate() {
+    const dayInPersianDigit = this.toLocaleDateString(PersianDate.locale, { day: 'numeric' });
+    const day = PersianDate.persianNumberToEnglish(dayInPersianDigit);
+
+    return day;
+  }
+}
+
+const today = new PersianDate();
+let hours = today.getHours();
+hours = hours > 9 ? hours : '0' + hours;
+let minutes = today.getMinutes();
+minutes = minutes > 9 ? minutes : '0' + minutes;
+process.stdout.write(`${today.getDayName()} ${today.getPersianMonthName()} ${today.getPersianDate()}, ${hours}:${minutes}\n`) && process.exit();

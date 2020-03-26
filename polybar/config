@@ -23,7 +23,6 @@ danger = #C0392B
 
 bg = #77333333
 fg = #e0e0e0
-fg-alt = #A9ABB0
 
 date = #FF6F3C
 backlight = #F1C40F
@@ -38,38 +37,28 @@ battery-discharging = #C0392B
 layout = #F1C40F
 network-connected = #FF6F3C
 
-shade1 = #0D47A1
-shade2 = #1565C0
-shade3 = #1976D2
-shade4 = #1E88E5
-shade5 = #2196F3
-shade6 = #42A5F5
-shade7 = #64B5F6
-shade8 = #90CAF9
-ashade8 = #2C2C2C
-
-
-primary = #aa0D47A1
-secondary = #e60053
-alert = #bd2c40
-
 [bar/top_bar]
-width = 100%
+width = 99%
 height = 43
 fixed-center = true
 line-size = 5
 radius = 20
+wm-restack = i3
+override-redirect = true
+offset-y = 15
+offset-x = 0.5%
+cursor-click = pointer
+# cursor-scroll = ns-resize
+
+tray-position = right
+tray-padding = 5
+tray-background = #aa0D47A1
+tray-background-radius = 10
 
 #background = #44111122
 #background = #550a0f14
-background = #9917202A
+background = #CC17202A
 foreground = ${colors.fg}
-
-border-top-size = 15
-border-bottom-size = 0
-border-left-size = 18
-border-right-size = 18
-border-color = ${colors.trans}
 
 padding = 2
 ;padding-left = 0
@@ -79,66 +68,16 @@ module-margin = 0
 ;module-margin-left = 0
 ;module-margin-right = 0
 
-font-0 = "GoogleSans Nerd Font:style=Regular;3"
-font-1 = "GoogleSans Nerd Font:style=Regular;3"
-font-2 = "GoogleSans Nerd Font:style=Bold;3"
-font-3 = "Material Icons:style=Regular:size=16;5"
-font-4 = "FontAwesome5Free:style=Solid:size=14;2"
-font-5 = "FontAwesome:style=Regular:size=14;2"
-font-6 = "FontAwesome5Free:style=Regular:size=14;2"
-font-7 = "FontAwesome5Brands:style=Regular:size=14;2"
-font-8 = "Ionicons:style=Regular"
-font-9 = "FontAwesome5Duotone:style=Solid:size=14;2"
-font-10 = "FontAwesome5Pro:style=Light:size=14;2"
+font-0 = "GoogleSans Nerd Font:style=Regular:size=13;3"
+font-1 = "GoogleSans Nerd Font:style=Bold:size=13;3"
+font-2 = "FontAwesome5Pro:style=Solid:size=14;2"
+font-3 = "FontAwesome5Pro:style=Regular:size=14;2"
+font-4 = "FontAwesome5Duotone:style=Solid:size=14;2"
+font-5 = "FontAwesome5Brands:style=Regular:size=14;2"
 
-;font-0 = "FontAwesome5Pro:style=Solid:size=14"
-;font-1 = "FontAwesome5Pro:style=Regular:size=14"
-;font-2 = "FontAwesome5Brands:style=Regular:size=14"
-;font-3 = "FontAwesome5Pro:style=Solid:size=14"
-;font-4 = "FontAwesome5Duotone:style=Solid:size=14"
-;font-5 = "Ionicons:style=Regular"
-
-
-modules-left = date xbacklight pulseaudio netspeed
+modules-left = hybrid-date brightness volume netspeed
 modules-center = i3
 modules-right = memory cpu battery xkeyboard wlan eth eth2 nonet
-
-# modules-left = i3
-# modules-center = date
-# modules-right = wlan memory cpu brightness volume battery xkeyboard powermenu
-
-tray-position = right
-tray-padding = 5
-tray-background = ${colors.primary}
-tray-background-radius = 10
-
-cursor-click = pointer
-# cursor-scroll = ns-resize
-
-[module/bluetooth]
-type = custom/script
-content = hey
-#exec = rofi-bluetooth --status
-interval = 1
-click-left = rofi-bluetooth &
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:125:...%
-label-padding = 2
-label-font = 3
-
-[module/xkeyboard]
-type = internal/xkeyboard
-
-format = <label-layout>
-format-foreground = ${colors.layout}
-label-layout =  %icon%
-label-layout-padding = 2
-
-layout-icon-0 = us;US
-layout-icon-1 = ir;IR
-
 
 [module/i3]
 type = internal/i3
@@ -206,7 +145,31 @@ label-urgent = 
 label-urgent-foreground = ${colors.danger}
 label-urgent-padding = 2
 
-[module/xbacklight]
+[module/bluetooth]
+type = custom/script
+content = hey
+#exec = rofi-bluetooth --status
+interval = 1
+click-left = rofi-bluetooth &
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:125:...%
+label-padding = 2
+label-font = 3
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+format = <label-layout>
+format-foreground = ${colors.layout}
+label-layout =  %icon%
+label-layout-padding = 2
+
+layout-icon-0 = us;US
+layout-icon-1 = ir;IR
+
+[module/brightness]
 type = internal/xbacklight
 
 format = <label>
@@ -220,7 +183,7 @@ ramp-2 = 🌓
 ramp-3 = 🌒
 ramp-4 = 🌑
 
-[module/brightness]
+[module/xbacklight]
 type = internal/xbacklight
 
 format = <label> <bar>
@@ -239,16 +202,15 @@ bar-empty-foreground = #808080
 
 [module/cpu]
 type = internal/cpu
-interval = 2
-format-prefix = " "
+interval = 1
+format = %{A1:urxvt -e htop &:}<label>%{A}
 format-padding = 2
 format-foreground = ${colors.cpu}
-label = %percentage:2%%
-click-left = exec xfce4-taskmanager &
+label =  %percentage:2%%
 
 [module/memory]
 type = internal/memory
-interval = 2
+interval = 1
 format-prefix = " "
 format-padding = 2
 format-foreground = ${colors.memory}
@@ -258,8 +220,9 @@ label = %percentage_used%%
 type = internal/network
 interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp3s0}
 interval = 1
+unknown-as-up = true
 
-format-connected = <label-connected>
+format-connected = %{A1:urxvt -e nethogs &:}<label-connected>%{A}
 format-connected-padding = 2
 format-connected-foreground = ${colors.netspeed}
 label-connected =  %downspeed%   %upspeed%
@@ -272,7 +235,7 @@ type = internal/network
 interface = wlp3s0
 interval = 1
 
-format-connected = <ramp-signal> <label-connected>
+format-connected = %{A1:urxvt -e nmtui &:}%{A3:nm-connection-editor &:}<ramp-signal> <label-connected>%{A}%{A}
 format-connected-padding = 2
 format-connected-foreground = ${colors.network-connected}
 label-connected = %essid%
@@ -286,28 +249,30 @@ type = internal/network
 interface = enp2s0
 interval = 1
 
-format-connected = <label-connected>
+format-connected = %{A1:urxvt -e nmtui &:}%{A3:nm-connection-editor &:}<label-connected>%{A}%{A}
 format-connected-padding = 2
 format-connected-foreground = ${colors.network-connected}
 label-connected =  Wired
 
 [module/eth2]
 type = internal/network
+unknown-as-up = true
 interface = enp0s20f0u1
 interval = 1
 
-format-connected = <label-connected>
+format-connected = %{A1:urxvt -e nmtui &:}%{A3:nm-connection-editor &:}<label-connected>%{A}%{A}
 format-connected-padding = 2
 format-connected-foreground = ${colors.network-connected}
-label-connected =  Wired
+label-connected =  Wired
 
 [module/nonet]
 type = internal/network
-interface = ${env:DEFAULT_NETWORK_INTERFACE}
+interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp3s0}
 interval = 1
+unknown-as-up = true
 
 format-connected =
-format-disconnected = <label-disconnected>
+format-disconnected = %{A1:urxvt -e nmtui &:}%{A3:nm-connection-editor &:}<label-disconnected>%{A}%{A}
 format-disconnected-padding = 2
 format-disconnected-foreground = ${colors.danger}
 label-disconnected =  NoNetwork
@@ -316,7 +281,7 @@ label-disconnected =  NoNetwork
 [module/date]
 type = internal/date
 
-interval = 50
+interval = 30
 
 date = %a %b %d, 
 time = %H:%M
@@ -328,10 +293,20 @@ format = <label>
 format-padding = 2
 format-foreground = ${colors.date}
 
-label = %date% %time%
+label =   %date% %time%
 
+[module/hybrid-date]
+type = custom/script
+exec = ~/scripts/date.sh
+tail = true
+click-left = kill -USR1 %pid%
 
-[module/pulseaudio]
+format = <label>
+format-foreground = ${colors.date}
+format-padding = 2
+label =   %output%
+
+[module/volume]
 type = internal/pulseaudio
 
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
@@ -350,7 +325,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 
-[module/volume]
+[module/pulseaudio]
 type = internal/pulseaudio
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
@@ -383,7 +358,7 @@ bar-volume-empty-foreground = #808080
 type = internal/battery
 battery = BAT0
 adapter = AC0
-full-at = 99
+full-at = 98
 
 format-charging = <animation-charging> <label-charging>
 format-charging-foreground = ${colors.battery-charging}

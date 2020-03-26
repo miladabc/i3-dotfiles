@@ -41,8 +41,9 @@ bindsym Menu exec rofi -show drun -theme apps.rasi
 # Set Background image
 exec_always feh --bg-fill ~/Pictures/wallpaper.*
 
-# compton
-exec_always --no-startup-id compton --config ~/.config/compton/compton.conf
+# compositor
+exec --no-startup-id compton -b --config ~/.config/compton/compton.conf
+#exec --no-startup-id picom -b --config ~/.config/compton/compton.conf --experimental-backends
 
 # polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
@@ -58,11 +59,7 @@ bindsym $mod+Ctrl+l --release exec --no-startup-id "sleep 0.5; xset dpms force o
 # exec --no-startup-id nm-applet &
 
 # Enable num lock
-exec_always --no-startup-id numlockx on
-
-# Flash Focus
-# exec_always --no-startup-id flashfocus
-# bindsym $mod+n exec --no-startup-id flash_window
+exec --no-startup-id numlockx on
 
 # Screenshot
 # bindsym Print exec --no-startup-id i3-scrot
@@ -76,7 +73,7 @@ bindsym Ctrl+Print --release exec --no-startup-id i3-scrot -w
 bindsym Shift+Print --release exec --no-startup-id flameshot gui -p ~/Pictures
 
 # Keyring issue Solve for manjaro i3
-#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -86,10 +83,10 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 #bindsym XF86Tools exec --no-startup-id pavucontrol
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
-bindsym XF86Mail exec "xbacklight -inc 10; notify-send 'brightness up'"
-bindsym XF86HomePage exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
+bindsym XF86Mail exec "xbacklight -inc 10"
+bindsym XF86HomePage exec "xbacklight -dec 10"
 
 # Touchpad controls
 #bindsym XF86TouchpadToggle exec /path/to/toggletouchpad.sh
@@ -128,7 +125,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
-workspace_auto_back_and_forth yes
+#workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
@@ -166,6 +163,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 #navigate workspaces next / previous
+bindsym $mod+Tab workspace next
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
@@ -249,6 +247,8 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [title="Task Manager - Google Chrome"] floating enable border pixel 1
+for_window [class="Nm-connection-editor"] floating enable border pixel 1
+for_window [class="URxvt"] floating enable border pixel 1
 
 
 # reload the configuration file
@@ -289,8 +289,11 @@ mode "resize" {
 #############################
 
 # Set inner/feher gaps
-gaps inner 30
-gaps outer -15
+#gaps inner 30
+#gaps outer -15
+gaps inner 15
+gaps outer 0
+gaps top 58
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>

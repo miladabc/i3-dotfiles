@@ -9,11 +9,15 @@ xidlehook \
   `# --not-when-fullscreen` \
   `# Don't lock when there's audio playing` \
   --not-when-audio \
-  `# Dim the screen after 15 minutes, undim if user becomes active` \
-  --timer 900 \
-    'xrandr --output "$PRIMARY_DISPLAY" --brightness .1' \
+  `# Dim the screen after 10 minutes, undim if user becomes active` \
+  --timer 600 \
+    'xrandr --output "$PRIMARY_DISPLAY" --brightness .2' \
     'xrandr --output "$PRIMARY_DISPLAY" --brightness 1' \
   `# lock after 10 more seconds` \
   --timer 10 \
-    'xset dpms force off; xrandr --output "$PRIMARY_DISPLAY" --brightness 1; mantablockscreen -sc' \
+    'mantablockscreen -sc' \
+    '' \
+  `# turn off screen and undim after 2 more seconds` \
+  --timer 30 \
+    'xset dpms force off; xrandr --output "$PRIMARY_DISPLAY" --brightness 1' \
     ''
